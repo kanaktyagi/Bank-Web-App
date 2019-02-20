@@ -14,8 +14,10 @@ public class Dbconnection {
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("mysql driver loaded");
-			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/banks_data","root","kanak1");
-		   
+			//connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/banks_data","root","kanak1");
+			connection=DriverManager.getConnection("jdbc:mysql://sql12.freemysqlhosting.net:3306/sql12279836","sql12279836","ZHg3h8gfJ7");
+			
+	
 		}
 		catch(SQLException e)
 		{

@@ -20,11 +20,13 @@ public class SearchServlet extends HttpServlet {
 
 	private List<Bank> banks = new ArrayList<Bank>();
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		ApplicationDao dao = new ApplicationDao();
 
-		if (req.getParameter("IFSC_CODE").length() > 0) {
+		System.out.println(req.getParameter("IFSC_CODE"));
+
+		if (req.getParameter("IFSC_CODE") != null) {
 			String searchstring = req.getParameter("IFSC_CODE");
 			try {
 				banks = dao.searchBankDetailsByIfscCode(searchstring);
@@ -35,16 +37,14 @@ public class SearchServlet extends HttpServlet {
 		} else {
 			String name = req.getParameter("bank_name");
 			String city = req.getParameter("bank_city");
-			System.out.println(name + city);
+
 			try {
 				banks = dao.searchBankDetailsByNameAndCity(name, city);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		// ab ek chiz or dekho ?? dekho  error handling
-		
+
 		res.setContentType("application/json");
 		PrintWriter out = res.getWriter();
 		out.print(JsonUtil.getJsonData(res, banks));
